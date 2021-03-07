@@ -1,0 +1,42 @@
+<%- include ('partials/header'); %>
+
+      <div class="container">
+          <form action="/api/exercise/log" method="get" class="d-flex justify-content-center">
+            <div class="form-group">
+            <h3>View log exercises</h3>
+            <p><code>GET /api/exercise/log</code></p>
+            <input id="uquery" class="form-control" type="text" name="username" placeholder="username" required value="<%= message ? message[2].username : '' %>">
+            <input id="from" class="form-control" type="text" name="from" placeholder="from (yyyy-mm-dd)" value="<%= message ? message[2].from : '' %>">
+            <input id="to" class="form-control" type="text" name="to" placeholder="to (yyyy-mm-dd)" value="<%= message ? message[2].to : '' %>">
+            <input id="limit" class="form-control" type="text" name="limit" placeholder="limit" value="<%= message ? message[2].limit : '' %>">
+            <input type="submit" value="Submit">
+            </div>
+            </form>
+<% if (message) { %>
+  <% if (message[1] === 'danger') { %>
+    <div class="container alert alert-<%= message[1] %>">
+      <p class="text-center"><%= message[0] %></p>
+    </div>
+  <% } else { %>  
+    <div class="container text-center">
+      <p id="log-header"><i>Your LOG:</i></p>
+      <div class="row">
+  <% for (let i = 0; i < message[0].count; i++) { %>
+        <div class="col-sm exercise">
+          <p class="date"><strong>On <%= message[0].log[i].date %></strong></p>
+          <p><%= message[0].log[i].description %></p>
+          <p>In <%= message[0].log[i].duration %> min.</p>
+        </div>
+  <% } %>
+      </div>
+    </div>
+  <% } %>
+<% } %>
+        <p><strong>To GET users' exercise log through API: </strong><code>GET /api/exercise/log?{username}[&amp;from][&amp;to][&amp;limit]</code></p>
+            <p><strong>{ }</strong> = required, <strong>[ ]</strong> = optional</p>
+            <p><strong>from, to</strong> = dates (yyyy-mm-dd); <strong>limit</strong> = number</p>
+            <p>To see all records through API: <code>api/exercise/users</code></p>
+      </div>
+
+<%- include ('partials/footer'); %>
+

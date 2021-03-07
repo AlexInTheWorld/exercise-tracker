@@ -1,0 +1,20 @@
+<%- include ('partials/header'); %>
+
+<div class="container">
+	<form action="/api/exercise/new-user" method="post" class="d-flex justify-content-center">
+    <div class="form-group">
+		<h3>Create a New User</h3>
+		<p><code>POST /api/exercise/new-user</code></p>
+		<input id="uname" type="text" name="username" placeholder="username">
+		<input type="submit" value="Submit">
+    </div>
+	</form>
+  <% if (message) { %>
+  <div class="container alert alert-<%= message[1] %>">
+        <p class="text-center"><%= message[0] %></p>
+  </div>
+  <% } %>
+</div>
+
+<%- include ('partials/footer'); %>
+
